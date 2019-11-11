@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from "./router"
 import "@common/components"
+import "@common/filter"
 import VueTouch from "vue-touch";
 
 Vue.use(VueTouch,{name:"v-touch"});

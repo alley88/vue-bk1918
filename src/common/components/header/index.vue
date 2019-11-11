@@ -43,6 +43,7 @@ export default {
         align-items: center;
         color: #fff;
         background: #c33;
+        z-index:10;
     }
 
     .header .icon_left{

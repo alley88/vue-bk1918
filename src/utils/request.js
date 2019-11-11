@@ -14,7 +14,7 @@ server.interceptors.request.use((config)=>{
 
     //config.headers["content-type"] = "applicetion/json";
     //config.headers["token"] = "";
-
+    return config;
 },(err)=>{
    return  Promise.reject(err);
 })

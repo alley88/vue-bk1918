@@ -5,5 +5,29 @@ export default {
     meta:{
         flag:true,
         requiredAuth:false
-    }
+    },
+    children:[
+        {
+            path:"/movie",
+            redirect:"/movie/movienow"
+        },
+        {
+            path:"movienow",
+            component:_=>import("@components/movienow"),
+            name:"movienow",
+            meta:{
+                flag:true,
+                requiredAuth:false
+            },
+        },
+        {
+            path:"moviecomming",
+            component:_=>import("@components/moviecomming"),
+            name:"moviecomming",
+            meta:{
+                flag:true,
+                requiredAuth:false
+            },
+        }
+    ]
 }
