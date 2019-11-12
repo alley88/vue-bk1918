@@ -14,11 +14,13 @@
           <div class="city_list_item" v-for="(item,index) in cityList" :key="index">
             <div class="city_title_letter">{{item.index}}</div>
             <div class="city_list_name">
-              <div
+              <v-touch
+                tag="div"
+                @tap="handleCityTo(child)"
                 class="city_list_name_item"
                 v-for="(child) in item.list"
                 :key="child.id"
-              >{{child.nm}}</div>
+              >{{child.nm}}</v-touch>
             </div>
           </div>
         </div>
@@ -65,6 +67,11 @@ export default {
      //this.$refs.cityContainer.scrollTop = 200;
 
       //this.$refs.cityContainer.scrollTop = t;
+    },
+    handleCityTo(child){
+      let path = this.$route.params.path || "/movie";
+      this.$router.push(path);
+      this.$store.commit("city/handleUpdateCity",child)
     }
   }
 };

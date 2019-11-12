@@ -22,3 +22,31 @@ export const movieCommingApi = (cityId)=>http({
         cityId:cityId
     }
 })
+
+/*
+* @params:movieId 电影的ID
+* 接口:电影详情
+*/
+
+export const movieDetailApi = (movieId)=>http({
+    method:"get",
+    url:"/api/detailmovie?",
+    data:{
+        movieId
+    }
+})
+/*
+* @params
+    cityId 城市ID
+    kw  模糊查询的数据
+* 接口:电影搜索
+*/
+
+export const movieSearch = (cityId,kw)=>http({
+    method:"get",
+    url:"api/searchList",
+    data:{
+        cityId,
+        kw
+    }
+})

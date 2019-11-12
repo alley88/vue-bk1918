@@ -2,7 +2,9 @@ import {cityApi} from "@api/city";
 
 let state = {
     cityList:JSON.parse(sessionStorage.getItem("cityList")) || [],
-    hotCity:JSON.parse(sessionStorage.getItem("hotCity")) || []
+    hotCity:JSON.parse(sessionStorage.getItem("hotCity")) || [],
+    cityId:sessionStorage.getItem("cityId") || 1,
+    nm: sessionStorage.getItem("nm") ||"北京"
 }
 
 let actions = {
@@ -15,6 +17,13 @@ let actions = {
 }
 
 let mutations = {
+    handleUpdateCity(state,params){
+        state.cityId = params.id;
+        state.nm = params.nm;
+
+        sessionStorage.setItem("nm",params.nm);
+        sessionStorage.setItem("cityId",params.id);
+    },
     handleGetCity(state,cities){
         let hotCity = [],cityList = [];
         /*

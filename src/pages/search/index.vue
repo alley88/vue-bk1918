@@ -1,37 +1,67 @@
 <template>
   <div class="search_container page">
-    <Header icon/>
+    <Header icon />
     <div class="search_movie_body">
       <div class="search_movie_input">
-        <input type="text" />
+        <input type="text" v-model="value" />
       </div>
       <h2>电影/电视剧/综艺</h2>
-      <div class="movie_item">
+      <router-link
+        class="movie_item"
+        tag="div"
+        :to="'/detail/'+item.id+'/'+item.nm"
+        v-for="(item,index) in list"
+        :key="index"
+      >
         <div class="movie_item_pic">
-          <img src />
+          <img :src="item.img | toImg('128.180')" />
         </div>
         <div class="movie_item_info">
-          <h2>无名之辈</h2>
+          <h2>{{item.nm}}</h2>
           <p>
-            <span class="person">67554</span>人想看
+            <span class="person">{{item.wish}}</span>人想看
           </p>
           <p>
             主演：
-            <span>Alley 吴彦祖 胡歌</span>
+            <span>{{item.star}}</span>
           </p>
           <p>
-            <span>2019-05-20上映</span>
+            <span>{{item.pubDesc}}</span>
           </p>
         </div>
         <div class="movie_item_btn person">想看</div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 
 <script>
-export default {};
+import { movieSearch } from "@api/movie";
+import { throttle } from "@utils/alley";
+
+export default {
+  name: "Search",
+  data() {
+    return {
+      value: "",
+      list: []
+    };
+  },
+  beforeMount(){
+    this.firstTime = 0;
+  },
+  watch: {
+    async value(newVal) {
+      let lastTime = new Date().getTime();
+      if (lastTime - this.firstTime > 300) {
+        let data = await movieSearch(this.$store.state.city.cityId, newVal);
+        this.list = data.data.movies ? data.data.movies.list : [];
+        this.firstTime = lastTime;
+      }
+    }
+  }
+};
 </script>
 
 

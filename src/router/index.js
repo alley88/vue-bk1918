@@ -28,6 +28,12 @@ const router = new VueRouter({
             component:_=>import("@pages/mine")
         },
         {
+            path:"/detail/:id/:nm",
+            component:_=>import("@pages/detail"),
+            name:"detail",
+            props:true
+        },
+        {
             path:"/login",
             name:"login",
             component:_=>import("@pages/login"),

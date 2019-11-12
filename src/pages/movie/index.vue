@@ -3,8 +3,8 @@
     <Header title="猫眼电影" />
     <div id="content">
       <div class="movie_menu">
-        <router-link tag="div" to="/city" class="movie_menu_city">
-          <span>北京</span>
+        <router-link tag="div" :to="{name:'city',params:{path:$route.path}}" class="movie_menu_city">
+          <span>{{this.$store.state.city.nm}}</span>
           <i class="iconfont">&#xe627;</i>
         </router-link>
         <ul class="movie_menu_switch">

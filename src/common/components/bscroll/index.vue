@@ -28,7 +28,9 @@ export default {
       //开启上拉加载更多
       pullUpLoad: true,
       //scroll事件的配置项
-      probeType:1
+      probeType:1,
+      click:true,
+      tap:true
     });
   },
   methods: {
