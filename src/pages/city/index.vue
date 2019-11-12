@@ -1,73 +1,81 @@
 <template>
-  <div class="city_body">
-    <!--热门城市-->
-    <div class="hot_city">
-      <div class="hot_title">热门城市</div>
-      <div class="hot_city_list">
-        <div class="hot_city_name">北京</div>
-        <div class="hot_city_name">北京</div>
-        <div class="hot_city_name">北京</div>
-        <div class="hot_city_name">北京</div>
-        <div class="hot_city_name">北京</div>
-      </div>
-    </div>
-    <!--城市列表-->
-    <div class="city_list">
-      <div class="city_list_item">
-        <div class="city_title_letter">A</div>
-        <div class="city_list_name">
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
+  <div class="city_container" ref="cityContainer">
+    <Alley-scroll ref="scroll">
+      <div class="city_body" >
+        <!--热门城市-->
+        <div class="hot_city">
+          <div class="hot_title">热门城市</div>
+          <div class="hot_city_list">
+            <div class="hot_city_name" v-for="item in hotCity" :key="item.id">{{item.nm}}</div>
+          </div>
+        </div>
+        <!--城市列表-->
+        <div class="city_list" ref="cityList">
+          <div class="city_list_item" v-for="(item,index) in cityList" :key="index">
+            <div class="city_title_letter">{{item.index}}</div>
+            <div class="city_list_name">
+              <div
+                class="city_list_name_item"
+                v-for="(child) in item.list"
+                :key="child.id"
+              >{{child.nm}}</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="city_list_item">
-        <div class="city_title_letter">A</div>
-        <div class="city_list_name">
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-        </div>
-      </div>
-      <div class="city_list_item">
-        <div class="city_title_letter">A</div>
-        <div class="city_list_name">
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-          <div class="city_list_name_item">北京</div>
-        </div>
-      </div>
-    </div>
+    </Alley-scroll>
     <!--城市列表下标-->
     <div class="city_list_index">
-      <div class="index_item">A</div>
-      <div class="index_item">B</div>
-      <div class="index_item">C</div>
-      <div class="index_item">D</div>
-      <div class="index_item">E</div>
+      <v-touch
+        tag="div"
+        @tap="handleTo(index)"
+        class="index_item"
+        v-for="(item,index) in cityList"
+        :key="item.id"
+      >{{item.index}}</v-touch>
     </div>
   </div>
 </template>
 
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  name: "City",
+  created() {
+    if (
+      !(sessionStorage.getItem("cityList") && sessionStorage.getItem("hotCity"))
+    ) {
+      this.$store.dispatch("city/handleAsyncGetCity");
+    }
+  },
+  computed: {
+    ...mapState({
+      cityList: state => state.city.cityList,
+      hotCity: state => state.city.hotCity
+    })
+  },
+  methods: {
+    handleTo(index) {
+      let t = this.$refs.cityList.querySelectorAll(".city_title_letter")[index]
+        .offsetTop;
+
+
+    this.$refs.scroll.handleScrollTo(-t);
+     //this.$refs.cityContainer.scrollTop = 200;
+
+      //this.$refs.cityContainer.scrollTop = t;
+    }
+  }
+};
 </script>
 
 
 <style>
+.city_container {
+  height: 100%;
+  overflow: auto;
+}
 .city_body {
   background: #ebebeb;
 }

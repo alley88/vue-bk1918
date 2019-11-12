@@ -58,10 +58,17 @@ export default {
         this.handleGetMovieList(arr[index]);
       });
 
+      //上拉加载更多
+      this.$refs.scroll.handlepullingUp(()=>{
+          console.log(111)
+      })
+
       this.$refs.scroll.handleScroll();
   }
 };
 </script>
+
+
 
 
 

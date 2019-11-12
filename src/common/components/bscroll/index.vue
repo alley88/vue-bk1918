@@ -22,7 +22,9 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
       //开启下拉刷新
-      pullDownRefresh: true,
+      pullDownRefresh: {
+        threshold:30
+      },
       //开启上拉加载更多
       pullUpLoad: true,
       //scroll事件的配置项
@@ -30,11 +32,14 @@ export default {
     });
   },
   methods: {
+    handleScrollTo(y){
+      this.scroll.scrollTo(0,y,300)
+    },
     handleScroll(){
         this.scroll.on("scroll",this.handleScrollCb)
     },
     handleScrollCb({y}){
-      if(y>50 && (!this.loadingFlag)){
+      if(y>=30){
             this.loadingFlag = true;
         }
     },
@@ -52,7 +57,20 @@ export default {
         setTimeout(()=>{
             this.loadingFlag = false;
         },500)
+    },
+    //上拉加载更多
+    handlepullingUp(callback){
+      this.scroll.on('pullingUp',()=>{
+          callback();
+      })
+    },
+    handlefinishPullUp(){
+      //通过better-scroll可以进行下一次加载了
+      this.scroll.finishPullUp();
+      //重新计算better-scroll
+      this.scroll.refresh();
     }
+
   }
 };
 </script>
