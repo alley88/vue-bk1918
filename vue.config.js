@@ -1,15 +1,22 @@
 const path = require('path');
 
 module.exports = {
+    //publicPath:"maoyan",
     devServer:{
         proxy:{
             "/api":{
                 target:"http://39.97.33.178",
                 changeOrigin:true
+                // pathRewrite:{
+                //     "^/alley":""
+                // }
+                //   rewrite "^/alley/(.*)$" /$1 break; 
             }
 
         }
     },
+
+   
     //别名配置
     configureWebpack:{
         resolve:{

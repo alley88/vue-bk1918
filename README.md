@@ -11,3 +11,12 @@
 # 环境配置
 > vue-cli@3
   vue.config.js
+
+
+# v-for v-if优先级
+> v-for与v-if优先级  v-for优先级更高  不建议v-for与v-if一起使用
+
+
+# 打包
+`npm run build`
+`yarn build`

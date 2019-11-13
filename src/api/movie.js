@@ -30,7 +30,7 @@ export const movieCommingApi = (cityId)=>http({
 
 export const movieDetailApi = (movieId)=>http({
     method:"get",
-    url:"/api/detailmovie?",
+    url:"/api/detailmovie",
     data:{
         movieId
     }
@@ -44,7 +44,7 @@ export const movieDetailApi = (movieId)=>http({
 
 export const movieSearch = (cityId,kw)=>http({
     method:"get",
-    url:"api/searchList",
+    url:"/api/searchList",
     data:{
         cityId,
         kw

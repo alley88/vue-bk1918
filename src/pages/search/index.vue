@@ -48,20 +48,17 @@ export default {
       list: []
     };
   },
-  beforeMount(){
-    this.firstTime = 0;
-  },
   watch: {
     async value(newVal) {
-      let lastTime = new Date().getTime();
-      if (lastTime - this.firstTime > 300) {
+     throttle(async ()=>{
         let data = await movieSearch(this.$store.state.city.cityId, newVal);
         this.list = data.data.movies ? data.data.movies.list : [];
-        this.firstTime = lastTime;
-      }
+     },300)
     }
   }
 };
+
+
 </script>
 
 

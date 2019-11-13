@@ -23,8 +23,10 @@
 </template>
 
 <script>
+
 export default {
-  name: "Movie"
+  name: "Movie",
+ 
 };
 </script>
 

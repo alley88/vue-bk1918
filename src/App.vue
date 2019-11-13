@@ -4,14 +4,26 @@
         <router-view></router-view>
     </keep-alive>
     <TabBar v-if="$route.meta.flag"/>
+
   </div>
+ 
 </template>
 <script>
 import TabBar from "@common/components/tabBar"
+import AlleyUI from "@lib";
 export default {
   name:"App",
   components:{
-    TabBar
+    TabBar,
+  },
+  created(){
+      AlleyUI.MessageBox({
+        title:"城市信息",
+        content:"北京",
+        ok:()=>{
+          alert(1)
+        }
+      })
   }
 }
 </script>

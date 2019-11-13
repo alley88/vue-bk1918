@@ -1,15 +1,14 @@
 /*
     函数节流
-
 */
-export const throttle = function (callback,time){
+export const throttle = (function (){
     var firstTime = 0;
-    return function(){
+    return function(callback,time){
         var lastTime = new Date().getTime();
         if(lastTime - firstTime > time){
             callback()
             firstTime = lastTime;
         }
     }
-}
+})()
 
